@@ -1,0 +1,26 @@
+{
+  "name": "bidzm/laravel-state-machine",
+  "description": "Laravel State Machine",
+  "keywords": [
+    "Laravel",
+    "State Machine"
+  ],
+  "homepage": "https://github.com/abidnurulhakim/laravel-state-machine",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Abid Nurul Hakim",
+      "email": "abidnurulhakim@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.9",
+    "illuminate/support": "^5.3.0",
+    "nesbot/carbon": ">=1.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Bidzm\\StateMachine\\": "src/"
+    }
+  }
+}
