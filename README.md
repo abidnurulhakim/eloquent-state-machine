@@ -1,4 +1,4 @@
-# laravel-activity-log
+# laravel-state-machine
 Laravel State Machine
 
 
@@ -13,7 +13,7 @@ Just add `Bidzm\StateMachine\Trait\StateMachineTrait` to your model.
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Bidzm\StateMachine\Trait\StateMachineTrait;
+use Bidzm\StateMachine\Traits\StateMachineTrait;
 
 class Message extends Model
 {
@@ -78,7 +78,7 @@ You can store when state change, with attribute `state_change_at` in your table
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Bidzm\StateMachine\Trait\StateMachineTrait;
+use Bidzm\StateMachine\Traits\StateMachineTrait;
 
 class Message extends Model
 {
