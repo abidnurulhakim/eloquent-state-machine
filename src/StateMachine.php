@@ -1,6 +1,6 @@
 <?php
 
-namespace Bidzm;
+namespace Bidzm\StateMachine;
 
 use Bidzm\StateMachine\Exceptions\InvalidStateTransition;
 use Carbon\Carbon;
