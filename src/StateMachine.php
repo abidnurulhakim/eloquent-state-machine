@@ -95,6 +95,20 @@ trait StateMachine
         return $action === $this->$fieldState;
     }
 
+    public function stateChangeAt(String $state) : ?Carbon
+    {
+        $timestamp = null;
+        if ($this->isActiveStateChangeAt()) {
+            $stateSnakeCase = snake_case($state);
+            $stateChangeAt = $this->state_change_at ?? [];
+            $time = array_get($stateChangeAt, $state) ?? array_get($stateChangeAt, $stateSnakeCase) ?? 'Not Found';
+            try {
+                $timestamp = Carbon::parse($time);
+            } catch (\Exception $e) {}
+        }
+        return $timestamp;
+    }
+
     public function getFieldState() : String
     {
         return $this->fieldState ?? 'state';
@@ -112,38 +126,13 @@ trait StateMachine
 
     public function isActiveStateChangeAt() : bool
     {
-        return $this->stateChangeAt ?? false;
+        return $this->useChangeAt ?? false;
     }
 
     public function getCasts()
     {
         $this->casts['state_change_at'] = 'array';
         return parent::getCasts();
-    }
-
-    public function setStateChangeAt() : void
-    {
-        $stateChangeAt = $this->state_change_at ?? [];
-        $fieldState = $this->getFieldState();
-        $state = $this->$fieldState;
-        if (!empty($state)) {
-            $stateChangeAt[$state] = Carbon::now()->toW3cString();
-        }
-        $this->state_change_at = $stateChangeAt;
-    }
-
-    public function stateChangeAt(String $state) : ?Carbon
-    {
-        $timestamp = null;
-        if ($this->isActiveStateChangeAt()) {
-            $stateSnakeCase = snake_case($state);
-            $stateChangeAt = $this->state_change_at ?? [];
-            $time = array_get($stateChangeAt, $state) ?? array_get($stateChangeAt, $stateSnakeCase) ?? 'Not Found';
-            try {
-                $timestamp = Carbon::parse($time);
-            } catch (\Exception $e) {}
-        }
-        return $timestamp;
     }
 
     protected function beforeTransition($from, $to) {}
@@ -188,5 +177,18 @@ trait StateMachine
             }
         }
         return $this->save();
+    }
+
+    private function setStateChangeAt() : void
+    {
+        if ($this->isActiveStateChangeAt()) {
+            $stateChangeAt = $this->state_change_at ?? [];
+            $fieldState = $this->getFieldState();
+            $state = $this->$fieldState;
+            if (!empty($state)) {
+                $stateChangeAt[$state] = Carbon::now()->toW3cString();
+            }
+            $this->state_change_at = $stateChangeAt;
+        }
     }
 }
