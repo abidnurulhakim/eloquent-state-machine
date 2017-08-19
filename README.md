@@ -85,7 +85,7 @@ class Message extends Model
     use StateMachine;
     protected $fieldState = 'state'; // Attribute name that use as state. Default `state`;
     protected $initialState = 'initiated'; // Initial state. Default `initiated`;
-    protected $stateChangeAt = false; // Determine if store time when state changed.
+    protected $useChangeAt = true; // Determine if store time when state changed. Default false;
     protected $transitions = [
         [
             'from' => ['initiated'], // Previous state
@@ -94,6 +94,20 @@ class Message extends Model
         ],
     ];
 }
+```
+There some function that you can use
+```
+<?php
+
+$message = new App\Message();
+$message->save();
+$message->state; // `initiated`
+$message->initiatedChangeAt(); // 2017-08-19T21:07:00+07:00
+
+$message->queue();
+$message->state; // `queued`
+$message->initiatedChangeAt(); // 2017-08-19T21:07:00+07:00
+$message->queuedChangeAt(); // 2017-08-19T21:07:01+07:00
 ```
 
 ## License
