@@ -1,11 +1,11 @@
 <?php
 
-namespace Bidzm\StateMachine\Traits;
+namespace Bidzm;
 
 use Bidzm\StateMachine\Exceptions\InvalidStateTransition;
 use Carbon\Carbon;
 
-trait StateMachineTrait
+trait StateMachine
 {
     protected $fromTransition;
     protected $toTransition;
@@ -17,7 +17,7 @@ trait StateMachineTrait
     //     ],
     // ];
 
-    public static function bootStateMachineTrait()
+    public static function bootStateMachine()
     {
         static::creating(function ($model) {
             $fieldState = $model->getFieldState();
@@ -63,7 +63,7 @@ trait StateMachineTrait
             if ($this->isAvailableAction($method)) {
                 $actionSnakeCase = snake_case($method);
                 if ($this->can($method) || $this->can($actionSnakeCase)) {
-                    return $this->actionState($method);
+                    return $this->saveState($method);
                 } else {
                     $fieldState = $this->getFieldState();
                     $fromState = $this->$fieldState;
@@ -146,9 +146,9 @@ trait StateMachineTrait
         return $timestamp;
     }
 
-    public function beforeTransition($from, $to) {}
+    protected function beforeTransition($from, $to) {}
 
-    public function afterTransition($from, $to) {}
+    protected function afterTransition($from, $to) {}
 
     private function isAvailableAction(String $action) : bool
     {
@@ -174,7 +174,7 @@ trait StateMachineTrait
         return in_array($state, $states);
     }
 
-    private function actionState(String $action) : bool
+    private function saveState(String $action) : bool
     {
         $actionSnakeCase = snake_case($action);
         $fieldState = $this->getFieldState();
