@@ -1,23 +1,23 @@
 # laravel-state-machine
-Laravel State Machine
+Eloquent State Machine
 
 
 Install through Composer
 ```
-composer require bidzm/laravel-state-machine
+composer require bidzm/eloquent-state-machine
 ```
 
 ## Usage
-Just add `Bidzm\StateMachine\Trait\StateMachineTrait` to your model.
+Just add `Bidzm\StateMachine` to your eloquent model.
 ```
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Bidzm\StateMachine\Traits\StateMachineTrait;
+use Bidzm\StateMachine;
 
 class Message extends Model
 {
-    use StateMachineTrait;
+    use StateMachine;
     protected $fieldState = 'state'; // attribute name that use as state. Default `state`;
     protected $initialState = 'initiated'; // initial state. Default `initiated`;
     protected $transitions = [
@@ -78,11 +78,11 @@ You can store when state change, with attribute `state_change_at` in your table
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Bidzm\StateMachine\Traits\StateMachineTrait;
+use Bidzm\StateMachine;
 
 class Message extends Model
 {
-    use StateMachineTrait;
+    use StateMachine;
     protected $fieldState = 'state'; // Attribute name that use as state. Default `state`;
     protected $initialState = 'initiated'; // Initial state. Default `initiated`;
     protected $stateChangeAt = false; // Determine if store time when state changed.

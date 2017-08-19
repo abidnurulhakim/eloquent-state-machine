@@ -1,7 +1,8 @@
 {
-  "name": "bidzm/laravel-state-machine",
-  "description": "Laravel State Machine",
+  "name": "bidzm/eloquent-state-machine",
+  "description": "Eloquent State Machine",
   "keywords": [
+    "Eloquent",
     "Laravel",
     "State Machine"
   ],
