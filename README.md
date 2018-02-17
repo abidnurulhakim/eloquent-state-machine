@@ -61,12 +61,12 @@ If you want doing some action in after or before transition fired. You must over
 ```
 <?php
 
-protected function beforeTransition()
+public function beforeTransition($from, $to)
 {
     // do something
 }
 
-protected function afterTransition()
+public function afterTransition($from, $to)
 {
     // do something
 }

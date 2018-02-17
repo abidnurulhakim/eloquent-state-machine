@@ -139,9 +139,9 @@ trait StateMachine
         return parent::getCasts();
     }
 
-    protected function beforeTransition($from, $to) {}
+    public function beforeTransition($from, $to) {}
 
-    protected function afterTransition($from, $to) {}
+    public function afterTransition($from, $to) {}
 
     private function isAvailableAction(String $action) : bool
     {
