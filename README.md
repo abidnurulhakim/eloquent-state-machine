@@ -73,7 +73,7 @@ protected function afterTransition()
 ```
 
 ## State Change At
-You can store when state change, with attribute `state_change_at` in your table
+You can store when state changed, with attribute `state_change_at` in your table
 ```
 namespace App;
 
@@ -102,12 +102,12 @@ There some function that you can use
 $message = new App\Message();
 $message->save();
 $message->state; // `initiated`
-$message->initiatedChangeAt(); // 2017-08-19T21:07:00+07:00
+$message->initiatedAt(); // 2017-08-19T21:07:00+07:00
 
 $message->queue();
 $message->state; // `queued`
-$message->initiatedChangeAt(); // 2017-08-19T21:07:00+07:00
-$message->queuedChangeAt(); // 2017-08-19T21:07:01+07:00
+$message->initiatedAt(); // 2017-08-19T21:07:00+07:00
+$message->queuedAt(); // 2017-08-19T21:07:01+07:00
 ```
 
 ## License
