@@ -53,8 +53,8 @@ trait StateMachine
             if ($this->isAvailableState($state) || $this->isAvailableState($stateSnakeCase)) {
                 return $this->isState($state) || $this->isState($stateSnakeCase);
             }
-        } else if (preg_match('/[A-z]+(ChangeAt)$/', $method)) {
-            $state = preg_replace('/(ChangeAt)$/', '', $method);
+        } else if (preg_match('/[A-z]+(At)$/', $method)) {
+            $state = preg_replace('/(At)$/', '', $method);
             $stateSnakeCase = snake_case($state);
             if ($this->isAvailableState($state) || $this->isAvailableState($stateSnakeCase)) {
                 return $this->stateChangeAt($state) ?? $this->stateChangeAt($stateSnakeCase);
@@ -111,7 +111,11 @@ trait StateMachine
 
     public function getFieldState() : String
     {
-        return $this->fieldState ?? 'state';
+        $fieldState = $this->fieldState ?? 'state';
+        if (empty($this->$fieldState)) {
+            $this->$fieldState = $this->getInitialState();
+        }
+        return $fieldState;
     }
 
     public function getInitialState() : String
